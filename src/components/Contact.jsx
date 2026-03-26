@@ -44,7 +44,12 @@ export default function Contact() {
       setForm({ user_name: '', user_email: '', message: '' })
     } catch (error) {
       setStatus('error')
-      setFeedback('Message failed to send. Please try again or contact me directly by email.')
+      const errorText =
+        error?.text ||
+        error?.message ||
+        'Unknown EmailJS error'
+
+      setFeedback(`Message failed to send: ${errorText}. Please try again or contact me directly by email.`)
     }
   }
 
