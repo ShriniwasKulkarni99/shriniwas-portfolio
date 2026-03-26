@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#242424" />
+      <stop offset="100%" stop-color="#111111" />
+    </linearGradient>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fcd34d" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <rect x="4" y="8" width="56" height="48" rx="24" fill="url(#bg)" stroke="#f59e0b" stroke-opacity="0.45"/>
+  <rect x="6" y="10" width="52" height="44" rx="22" fill="none" stroke="#fcd34d" stroke-opacity="0.12"/>
+  <text x="50%" y="52%" text-anchor="middle" dominant-baseline="middle"
+    font-family="Syne, Arial, sans-serif" font-size="26" font-weight="800"
+    fill="url(#shine)" filter="url(#glow)">SK</text>
+</svg>
