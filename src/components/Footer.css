@@ -60,13 +60,6 @@
   color: var(--text-dim);
 }
 
-.footer__made {
-  font-size: 0.72rem;
-  color: var(--text-dim);
-  margin-top: 0.2rem;
-  opacity: 0.6;
-}
-
 @media (max-width: 768px) {
   .footer__inner {
     grid-template-columns: 1fr;

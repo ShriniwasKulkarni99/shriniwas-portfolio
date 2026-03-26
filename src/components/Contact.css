@@ -76,7 +76,7 @@
 .contact__field textarea:focus {
   border-color: var(--accent);
   background: var(--bg-card-hover);
-  box-shadow: 0 0 0 3px rgba(20,184,166,0.1);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
 .contact__submit {
@@ -86,11 +86,23 @@
   font-size: 0.95rem;
 }
 
-.contact__success {
+.contact__submit:disabled {
+  opacity: 0.75;
+  cursor: wait;
+}
+
+.contact__status {
   text-align: center;
   font-size: 0.85rem;
-  color: #47a248;
   animation: fadeIn 0.4s ease;
+}
+
+.contact__status--success {
+  color: #47a248;
+}
+
+.contact__status--error {
+  color: #f87171;
 }
 
 /* Links sidebar */

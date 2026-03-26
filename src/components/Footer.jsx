@@ -24,7 +24,6 @@ export default function Footer() {
         </div>
         <div className="footer__right">
           <p className="footer__copy">© {year} Shriniwas Kulkarni. All rights reserved.</p>
-          <p className="footer__made">Built with React + Vite ⚡</p>
         </div>
       </div>
     </footer>

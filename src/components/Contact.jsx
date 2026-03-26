@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import emailjs from '@emailjs/browser'
 import './Contact.css'
 
 const contactLinks = [
@@ -10,16 +11,41 @@ const contactLinks = [
 ]
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [sent, setSent] = useState(false)
+  const formRef = useRef(null)
+  const [form, setForm] = useState({ user_name: '', user_email: '', message: '' })
+  const [status, setStatus] = useState('idle')
+  const [feedback, setFeedback] = useState('')
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
-    setSent(true)
-    setTimeout(() => setSent(false), 3500)
-    setForm({ name: '', email: '', message: '' })
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+    if (!serviceId || !templateId || !publicKey) {
+      setStatus('error')
+      setFeedback('Email service is not configured yet. Add your EmailJS keys to the Vite env file.')
+      return
+    }
+
+    try {
+      setStatus('sending')
+      setFeedback('')
+
+      await emailjs.sendForm(serviceId, templateId, formRef.current, {
+        publicKey,
+      })
+
+      setStatus('success')
+      setFeedback("Thanks! Your message has been sent. I'll get back to you soon.")
+      setForm({ user_name: '', user_email: '', message: '' })
+    } catch (error) {
+      setStatus('error')
+      setFeedback('Message failed to send. Please try again or contact me directly by email.')
+    }
   }
 
   return (
@@ -38,17 +64,18 @@ export default function Contact() {
         </div>
 
         <div className="contact__grid">
-          <form className="contact__form" onSubmit={handleSubmit}>
+          <form ref={formRef} className="contact__form" onSubmit={handleSubmit}>
             <div className="contact__form-row">
               <div className="contact__field">
                 <label htmlFor="name">Name</label>
                 <input
                   id="name"
-                  name="name"
+                  name="user_name"
                   type="text"
                   placeholder="Your name"
-                  value={form.name}
+                  value={form.user_name}
                   onChange={handleChange}
+                  disabled={status === 'sending'}
                   required
                 />
               </div>
@@ -56,11 +83,12 @@ export default function Contact() {
                 <label htmlFor="email">Email</label>
                 <input
                   id="email"
-                  name="email"
+                  name="user_email"
                   type="email"
                   placeholder="you@company.com"
-                  value={form.email}
+                  value={form.user_email}
                   onChange={handleChange}
+                  disabled={status === 'sending'}
                   required
                 />
               </div>
@@ -74,13 +102,18 @@ export default function Contact() {
                 placeholder="Tell me about the opportunity or project..."
                 value={form.message}
                 onChange={handleChange}
+                disabled={status === 'sending'}
                 required
               />
             </div>
             <button type="submit" className="btn btn-primary contact__submit">
-              {sent ? '✓ Message Sent!' : 'Send Message →'}
+              {status === 'sending' ? 'Sending...' : status === 'success' ? '✓ Message Sent!' : 'Send Message →'}
             </button>
-            {sent && <p className="contact__success">Thanks! I'll get back to you soon.</p>}
+            {feedback && (
+              <p className={`contact__status contact__status--${status === 'error' ? 'error' : 'success'}`}>
+                {feedback}
+              </p>
+            )}
           </form>
 
           <div className="contact__links">
