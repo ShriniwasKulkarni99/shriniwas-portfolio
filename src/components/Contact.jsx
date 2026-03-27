@@ -2,6 +2,9 @@ import React, { useRef, useState } from 'react'
 import emailjs from '@emailjs/browser'
 import './Contact.css'
 
+const RECEIVER_EMAIL = 'shriniwaskulkarni99@gmail.com'
+const RECEIVER_NAME = 'Shriniwas Kulkarni'
+
 const contactLinks = [
   { label: 'Email', value: 'shriniwaskulkarni99@gmail.com', href: 'mailto:shriniwaskulkarni99@gmail.com', icon: '✉️' },
   { label: 'Phone', value: '+91 7517738394', href: 'tel:+917517738394', icon: '📞' },
@@ -70,6 +73,17 @@ export default function Contact() {
 
         <div className="contact__grid">
           <form ref={formRef} className="contact__form" onSubmit={handleSubmit}>
+            <input type="hidden" name="to_email" value={RECEIVER_EMAIL} />
+            <input type="hidden" name="to_name" value={RECEIVER_NAME} />
+            <input type="hidden" name="reply_to" value={form.user_email} />
+            <input
+              type="hidden"
+              name="subject"
+              value={form.user_name ? `New portfolio message from ${form.user_name}` : 'New portfolio message'}
+            />
+            <input type="hidden" name="sent_at" value={new Date().toLocaleString('en-IN')} />
+            <input type="hidden" name="source" value="Shriniwas Portfolio Contact Form" />
+
             <div className="contact__form-row">
               <div className="contact__field">
                 <label htmlFor="name">Name</label>
