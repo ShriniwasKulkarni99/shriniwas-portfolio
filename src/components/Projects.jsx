@@ -10,8 +10,8 @@ const projects = [
       'Built a plagiarism detection system using keyword matching and similarity analysis, with a rule-based text analysis pipeline that flags suspicious content patterns and reduces manual validation effort.',
     tags: ['Python', 'NLP', 'React', 'Node.js'],
     category: 'Full Stack + NLP',
-    liveUrl: '#',
-    githubUrl: '#',
+    liveUrl: 'https://degreeguard.vercel.app/',
+    githubUrl: 'https://github.com/karanainule/Authenticity-Validator-for-Academia',
     highlight: true,
   },
   {
@@ -50,11 +50,24 @@ const projects = [
     githubUrl: '#',
     highlight: false,
   },
+  {
+    id: 5,
+    title: 'Personal Portfolio Website',
+    duration: 'Personal Project',
+    description:
+      'Designed and developed a responsive portfolio website to showcase my projects, skills, education, and achievements with a polished UI, theme switching, and contact integration.',
+    tags: ['React', 'Vite', 'JavaScript', 'CSS3'],
+    category: 'Frontend',
+    liveUrl: 'https://shriniwas-kulkarni.netlify.app/',
+    githubUrl: 'https://github.com/ShriniwasKulkarni99/shriniwas-portfolio',
+    highlight: true,
+  },
 ]
 
 const tagColors = {
   'Python': '#3776ab', 'NLP': '#8b5cf6', 'Genomics': '#ec4899', 'VCF': '#0ea5e9',
   'React': '#61dafb', 'Node.js': '#339933', 'MongoDB': '#47a248',
+  'Vite': '#646cff', 'JavaScript': '#f7df1e', 'CSS3': '#1572b6',
   'MySQL': '#4479a1', 'Authentication': '#f59e0b',
   'Android': '#3ddc84', 'Java': '#f89820', 'Gradle': '#66cdd9', 'UI Logic': '#14b8a6',
 }
@@ -107,12 +120,16 @@ export default function Projects() {
                     ))}
                   </div>
                   <div className="project-card__actions">
-                    <a href={project.githubUrl} className="btn btn-outline" target="_blank" rel="noopener noreferrer">
-                      GitHub ↗
-                    </a>
-                    <a href={project.liveUrl} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                      Live Demo ↗
-                    </a>
+                    {project.githubUrl !== '#' && (
+                      <a href={project.githubUrl} className="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                        GitHub ↗
+                      </a>
+                    )}
+                    {project.liveUrl !== '#' && (
+                      <a href={project.liveUrl} className="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                        Live Demo ↗
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import './Hero.css'
-import profile from "/public/profile.jpg";
+import profile from '/profile.jpg'
 
 export default function Hero() {
   return (
